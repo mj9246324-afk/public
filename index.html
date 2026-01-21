@@ -2,14 +2,13 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
-<title>Min Startpage</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<title>Modern Startpage</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
     --text: #ffffff;
-    --sub: #cccccc;
-    --button-bg: rgba(255,255,255,0.1);
-    --button-hover: rgba(255,255,255,0.2);
+    --sub: #bbbbbb;
+    --accent: #4f8cff;
 }
 
 /* Grundinställningar */
@@ -25,19 +24,34 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text);
     background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
     background-attachment: fixed;
+    color: var(--text);
+    overflow: hidden;
     position: relative;
 }
 
-/* Overlay så klocka och text syns */
-body::before {
-    content: '';
+/* Subtil bakgrunds-animation (rörliga stjärnor) */
+.stars {
     position: absolute;
-    top: 0; left: 0; right:0; bottom:0;
-    background: rgba(0,0,0,0.4);
+    width: 100%;
+    height: 100%;
+    background: transparent;
     z-index: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from {opacity:0.3;}
+    to {opacity:1;}
 }
 
 .container {
@@ -49,58 +63,56 @@ body::before {
     text-align: center;
 }
 
-/* Klocka med glas-look */
-.glass-clock {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(8px);
-    border-radius: 20px;
-    padding: 20px 50px;
-    display: inline-block;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
-
+/* Futuristisk digital klocka */
 #digital-clock {
-    font-family: 'Inter', sans-serif;
-    font-size: 80px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 100px;
     font-weight: 700;
-    color: var(--text);
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px var(--accent), 0 0 25px rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
 }
 
+/* Datum */
 #date {
-    font-size: 22px;
+    font-size: 24px;
     color: var(--sub);
 }
 
-/* Länkar */
+/* Länkar med ikoner */
 .links {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 20px;
     justify-items: center;
 }
 
 .links a {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
     text-decoration: none;
     color: var(--text);
     font-weight: 500;
-    font-size: 16px;
-    padding: 12px 22px;
-    border-radius: 20px;
-    background: var(--button-bg);
-    backdrop-filter: blur(6px);
+    font-size: 14px;
+    padding: 12px 18px;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px);
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .links a:hover {
-    background: var(--button-hover);
     transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.6);
+}
+
+.links a img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
 }
 
 /* Väder */
@@ -112,45 +124,58 @@ body::before {
 </head>
 <body>
 
+<div class="stars" id="stars"></div>
+
 <div class="container">
     <!-- Klocka -->
-    <div class="glass-clock">
-        <div id="digital-clock">--:--</div>
-    </div>
+    <div id="digital-clock">--:--</div>
     <!-- Datum -->
     <div id="date">Loading…</div>
     <!-- Väder -->
     <div class="weather" id="weather">☀️ 3°C Linköping</div>
     <!-- Länkar -->
     <div class="links">
-        <a href="https://chat.openai.com" target="_blank">ChatGPT</a>
-        <a href="https://www.youtube.com" target="_blank">YouTube</a>
-        <a href="https://www.github.com" target="_blank">GitHub</a>
-        <a href="https://www.spotify.com" target="_blank">Spotify</a>
-        <a href="https://www.reddit.com" target="_blank">Reddit</a>
-        <a href="https://www.google.se" target="_blank">Google</a>
-        <a href="https://www.svt.se" target="_blank">SVT</a>
+        <a href="https://chat.openai.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/chat.png"/><span>ChatGPT</span></a>
+        <a href="https://www.youtube.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/youtube-play.png"/><span>YouTube</span></a>
+        <a href="https://www.github.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/github.png"/><span>GitHub</span></a>
+        <a href="https://www.spotify.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/spotify.png"/><span>Spotify</span></a>
+        <a href="https://www.reddit.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/reddit.png"/><span>Reddit</span></a>
+        <a href="https://www.google.se" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png"/><span>Google</span></a>
+        <a href="https://www.svt.se" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/tv.png"/><span>SVT</span></a>
     </div>
 </div>
 
 <script>
-// Digital klocka
-function updateClock() {
+// Skapa stjärnor i bakgrunden
+const starsContainer = document.getElementById('stars');
+for (let i=0;i<80;i++){
+    let star = document.createElement('div');
+    star.className='star';
+    star.style.width = star.style.height = `${Math.random()*3+1}px`;
+    star.style.top = `${Math.random()*100}%`;
+    star.style.left = `${Math.random()*100}%`;
+    star.style.animationDuration = `${Math.random()*3+2}s`;
+    starsContainer.appendChild(star);
+}
+
+// Futuristisk digital klocka
+function updateClock(){
     const now = new Date();
     const hours = String(now.getHours()).padStart(2,'0');
     const minutes = String(now.getMinutes()).padStart(2,'0');
-    document.getElementById('digital-clock').textContent = `${hours}:${minutes}`;
+    const seconds = String(now.getSeconds()).padStart(2,'0');
+    document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
 }
 updateClock();
 setInterval(updateClock, 1000);
 
 // Datum
-function updateDate() {
+function updateDate(){
     const now = new Date();
-    document.getElementById('date').textContent = now.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
+    document.getElementById('date').textContent = now.toLocaleDateString('sv-SE', { weekday:'long', day:'numeric', month:'long' });
 }
 updateDate();
-setInterval(updateDate, 60*1000);
+setInterval(updateDate, 60000);
 
 // Väderspan (manuell)
 document.getElementById('weather').textContent = "☀️ 3°C Linköping";
