@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Start - Version 3</title>
+<title>Start - Synliga block</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --glass: rgba(255,255,255,0.22);
-  --border: rgba(255,255,255,0.4);
+  --block-bg: #ffffff; /* Vit bakgrund nu */
+  --border: rgba(0,0,0,0.1);
   --text: #111;
 }
 
@@ -37,15 +37,10 @@ body {
 }
 
 .block {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--block-bg);
   border-radius: 16px;
   border: 1px solid var(--border);
   padding: 20px 22px;
-  
-  /* Tillfällig färgindikator för synlighet */
-  box-shadow: 0 0 0 2px rgba(255,0,0,0.4);
 }
 
 .block h2 {
@@ -69,7 +64,7 @@ body {
   height: 44px;
   border-radius: 10px;
   margin: 0 auto 6px;
-  background: rgba(255,255,255,0.6);
+  background: #e0e0e0;
 }
 
 /* SHOP */
@@ -88,7 +83,7 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.6);
+  background: #e0e0e0;
 }
 
 /* WEATHER */
