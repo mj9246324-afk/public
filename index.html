@@ -9,67 +9,101 @@
     --text: #ffffff;
     --sub: #cccccc;
     --accent: #4f8cff;
-    --glass-bg: rgba(255,255,255,0.05);
-    --glass-hover: rgba(255,255,255,0.1);
+    --bg-panel: rgba(0,0,0,0.5);
+    --panel-radius: 16px;
 }
 
 /* Grundinställningar */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
 body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
-    background-attachment: fixed;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
     color: var(--text);
-    padding: 50px 20px;
+    padding: 40px;
 }
 
-/* Overlay för kontrast */
 body::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.3);
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.4);
     z-index: 0;
 }
 
 .container {
     position: relative;
     z-index: 1;
-    width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
+    margin: auto;
     display: grid;
     grid-template-rows: auto auto auto 1fr;
     row-gap: 30px;
     justify-items: center;
 }
 
-/* Rund glas-klocka */
-.clock-container {
-    background: rgba(255,255,255,0.05);
-    border-radius: 50%;
-    padding: 50px;
+/* ---------- ANALOG KLOCKA ---------- */
+.clock-circle {
+    position: relative;
     width: 220px;
     height: 220px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
     box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#clock {
-    font-family: 'Inter', sans-serif;
-    font-size: 48px;
-    font-weight: 700;
+.clock-face {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+}
+
+.number {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
     color: var(--text);
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+}
+
+.hand {
+    position: absolute;
+    width: 50%;
+    background: var(--text);
+    top: 50%;
+    left: 50%;
+    transform-origin: 100% 50%;
+    transform: rotate(90deg);
+    border-radius: 2px;
+}
+
+.hand.hour {
+    height: 4px;
+    width: 50px;
+}
+
+.hand.minute {
+    height: 3px;
+    width: 70px;
+}
+
+.hand.second {
+    height: 2px;
+    width: 90px;
+    background: var(--accent);
 }
 
 /* Datum */
@@ -84,113 +118,126 @@ body::before {
     color: var(--sub);
 }
 
-/* Kategori-boxar */
-.category {
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    border-radius: 16px;
-    padding: 20px 30px;
-    width: 90%;
-    max-width: 1000px;
+/* ---------- SEKTIONER ---------- */
+.section {
+    width: 100%;
+    max-width: 1100px;
+    background: var(--bg-panel);
+    border-radius: var(--panel-radius);
+    padding: 16px 24px;
     margin-bottom: 20px;
 }
 
-.category h2 {
-    margin-bottom: 15px;
+.section-title {
     font-size: 18px;
     color: var(--accent);
+    margin-bottom: 12px;
 }
 
-/* Ikon-grid */
 .icon-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 20px;
-    justify-items: center;
+    gap: 18px;
+    justify-items: start;
 }
 
 .icon-grid a {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 12px;
     text-decoration: none;
     color: var(--text);
     font-size: 14px;
-    transition: all 0.2s ease;
 }
 
 .icon-grid a img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 5px;
+    width: 36px;
+    height: 36px;
 }
 
 .icon-grid a:hover {
-    transform: translateY(-3px);
-    color: var(--accent);
+    opacity: 0.75;
 }
-
 </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Klocka -->
-    <div class="clock-container">
-        <div id="clock">--:--</div>
-    </div>
-    <!-- Datum -->
-    <div id="date">Loading…</div>
-    <!-- Väder -->
-    <div id="weather">☀️ 3°C Linköping</div>
-
-    <!-- Kategorier -->
-
-    <!-- Bilder -->
-    <div class="category">
-        <h2>Bilder</h2>
-        <div class="icon-grid">
-            <a href="https://www.flickr.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/flickr.png"/><span>Flickr</span></a>
-            <a href="https://www.instagram.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/instagram-new.png"/><span>Instagram</span></a>
+    <!-- Analog klocka -->
+    <div class="clock-circle">
+        <div class="clock-face" id="clock-face">
+            <!-- siffror -->
+            <div class="number" style="top:5%; left:50%;">12</div>
+            <div class="number" style="top:50%; left:95%;">3</div>
+            <div class="number" style="top:95%; left:50%;">6</div>
+            <div class="number" style="top:50%; left:5%;">9</div>
+            <!-- visare -->
+            <div class="hand hour" id="hour-hand"></div>
+            <div class="hand minute" id="minute-hand"></div>
+            <div class="hand second" id="second-hand"></div>
         </div>
     </div>
 
-    <!-- Video -->
-    <div class="category">
-        <h2>Video</h2>
+    <div id="date">Loading…</div>
+
+    <!-- Väder -->
+    <div id="weather">☀️ 3°C Linköping</div>
+
+    <!-- Bildersektion -->
+    <div class="section">
+        <div class="section-title">📸 Bilder</div>
         <div class="icon-grid">
-            <a href="https://www.youtube.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/youtube-play.png"/><span>YouTube</span></a>
-            <a href="https://vimeo.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/vimeo.png"/><span>Vimeo</span></a>
+            <a href="https://www.flickr.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/flickr.png"/><span>Flickr</span></a>
+            <a href="https://www.instagram.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/instagram-new.png"/><span>Instagram</span></a>
+        </div>
+    </div>
+
+    <!-- Videosektion -->
+    <div class="section">
+        <div class="section-title">🎬 Video</div>
+        <div class="icon-grid">
+            <a href="https://www.youtube.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/youtube-play.png"/><span>YouTube</span></a>
+            <a href="https://vimeo.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/vimeo.png"/><span>Vimeo</span></a>
         </div>
     </div>
 
     <!-- Nyheter -->
-    <div class="category">
-        <h2>Nyheter</h2>
+    <div class="section">
+        <div class="section-title">📰 Nyheter</div>
         <div class="icon-grid">
-            <a href="https://www.aftonbladet.se" target="_blank"><img src="https://img.icons8.com/color/96/000000/news.png"/><span>Aftonbladet</span></a>
-            <a href="https://www.svt.se" target="_blank"><img src="https://img.icons8.com/color/96/000000/news.png"/><span>SVT</span></a>
+            <a href="https://www.aftonbladet.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/news.png"/><span>Aftonbladet</span></a>
+            <a href="https://www.svt.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/news.png"/><span>SVT</span></a>
         </div>
     </div>
 
-    <!-- Väder -->
-    <div class="category">
-        <h2>Väder</h2>
+    <!-- Verktyg/Annat -->
+    <div class="section">
+        <div class="section-title">⚙️ Verktyg & annat</div>
         <div class="icon-grid">
-            <a href="https://www.smhi.se" target="_blank"><img src="https://img.icons8.com/color/96/000000/weather.png"/><span>SMHI</span></a>
+            <a href="https://chat.openai.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/chat.png"/><span>ChatGPT</span></a>
+            <a href="https://www.google.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/google-logo.png"/><span>Google</span></a>
+            <a href="https://www.github.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/github.png"/><span>GitHub</span></a>
+            <a href="https://www.spotify.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/spotify.png"/><span>Spotify</span></a>
         </div>
     </div>
 
 </div>
 
 <script>
-// Klocka
+// Analog klocka
 function updateClock() {
     const now = new Date();
-    const hours = String(now.getHours()).padStart(2,'0');
-    const minutes = String(now.getMinutes()).padStart(2,'0');
-    document.getElementById('clock').textContent = `${hours}:${minutes}`;
+    const sec = now.getSeconds();
+    const min = now.getMinutes();
+    const hr  = now.getHours();
+
+    const secDeg = sec * 6; // 360 / 60
+    const minDeg = min * 6 + sec*0.1; // minut + liten justering
+    const hrDeg  = (hr%12)*30 + min*0.5; // timme + minut
+
+    document.getElementById('second-hand').style.transform = `rotate(${secDeg}deg) translateX(-50%)`;
+    document.getElementById('minute-hand').style.transform = `rotate(${minDeg}deg) translateX(-50%)`;
+    document.getElementById('hour-hand').style.transform = `rotate(${hrDeg}deg) translateX(-50%)`;
 }
 updateClock();
 setInterval(updateClock, 1000);
@@ -198,12 +245,12 @@ setInterval(updateClock, 1000);
 // Datum
 function updateDate() {
     const now = new Date();
-    document.getElementById('date').textContent = now.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
+    document.getElementById('date').textContent = now.toLocaleDateString('sv-SE', { weekday:'long', day:'numeric', month:'long' });
 }
 updateDate();
 setInterval(updateDate, 60000);
 
-// Väder (manuell)
+// Väder (statisk)
 document.getElementById('weather').textContent = "☀️ 3°C Linköping";
 </script>
 
