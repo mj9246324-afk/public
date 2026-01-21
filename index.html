@@ -2,14 +2,14 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
-<title>Startpage</title>
+<title>Elegant Startpage</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
     --text: #ffffff;
     --sub: #cccccc;
     --accent: #4f8cff;
-    --bg-panel: rgba(0,0,0,0.5);
+    --panel-bg: rgba(0,0,0,0.5);
     --panel-radius: 16px;
 }
 
@@ -25,119 +25,72 @@ body {
     min-height: 100vh;
     background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
     color: var(--text);
-    padding: 40px;
-}
-
-body::before {
-    content: "";
-    position: absolute;
-    top:0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.4);
-    z-index: 0;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: auto;
+    width: 100%;
+    max-width: 1200px;
     display: grid;
-    grid-template-rows: auto auto auto 1fr;
-    row-gap: 30px;
+    grid-template-rows: auto auto 1fr;
+    row-gap: 40px;
     justify-items: center;
 }
 
 /* ---------- ANALOG KLOCKA ---------- */
-.clock-circle {
+.clock-container {
     position: relative;
     width: 220px;
     height: 220px;
     border-radius: 50%;
     background: rgba(255,255,255,0.05);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.clock-face {
-    position: relative;
+.clock-svg {
     width: 200px;
     height: 200px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.05);
 }
 
-.number {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    font-weight: bold;
-    color: var(--text);
-    transform: translate(-50%, -50%);
-    font-size: 16px;
-}
-
-.hand {
-    position: absolute;
-    width: 50%;
-    background: var(--text);
-    top: 50%;
-    left: 50%;
-    transform-origin: 100% 50%;
-    transform: rotate(90deg);
-    border-radius: 2px;
-}
-
-.hand.hour {
-    height: 4px;
-    width: 50px;
-}
-
-.hand.minute {
-    height: 3px;
-    width: 70px;
-}
-
-.hand.second {
-    height: 2px;
-    width: 90px;
-    background: var(--accent);
-}
-
-/* Datum */
+/* Datum & väder */
 #date {
     font-size: 20px;
     color: var(--sub);
+    margin-top: 10px;
 }
 
-/* Väder */
 #weather {
     font-size: 18px;
     color: var(--sub);
+    margin-top: 5px;
 }
 
 /* ---------- SEKTIONER ---------- */
 .section {
     width: 100%;
     max-width: 1100px;
-    background: var(--bg-panel);
+    background: var(--panel-bg);
     border-radius: var(--panel-radius);
-    padding: 16px 24px;
+    padding: 20px 30px;
     margin-bottom: 20px;
 }
 
 .section-title {
     font-size: 18px;
     color: var(--accent);
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .icon-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 18px;
+    gap: 20px;
     justify-items: start;
 }
 
@@ -156,31 +109,32 @@ body::before {
 }
 
 .icon-grid a:hover {
-    opacity: 0.75;
+    opacity: 0.8;
 }
+
 </style>
 </head>
 <body>
 
 <div class="container">
     <!-- Analog klocka -->
-    <div class="clock-circle">
-        <div class="clock-face" id="clock-face">
+    <div class="clock-container">
+        <svg class="clock-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" stroke="white" stroke-width="1" fill="none"/>
             <!-- siffror -->
-            <div class="number" style="top:5%; left:50%;">12</div>
-            <div class="number" style="top:50%; left:95%;">3</div>
-            <div class="number" style="top:95%; left:50%;">6</div>
-            <div class="number" style="top:50%; left:5%;">9</div>
+            <text x="50" y="12" text-anchor="middle" fill="white" font-size="5">12</text>
+            <text x="88" y="53" text-anchor="middle" fill="white" font-size="5">3</text>
+            <text x="50" y="95" text-anchor="middle" fill="white" font-size="5">6</text>
+            <text x="12" y="53" text-anchor="middle" fill="white" font-size="5">9</text>
             <!-- visare -->
-            <div class="hand hour" id="hour-hand"></div>
-            <div class="hand minute" id="minute-hand"></div>
-            <div class="hand second" id="second-hand"></div>
-        </div>
+            <line id="hour-hand" x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line id="minute-hand" x1="50" y1="50" x2="50" y2="20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <line id="second-hand" x1="50" y1="50" x2="50" y2="15" stroke="#4f8cff" stroke-width="1" stroke-linecap="round"/>
+        </svg>
     </div>
 
+    <!-- Datum & Väder -->
     <div id="date">Loading…</div>
-
-    <!-- Väder -->
     <div id="weather">☀️ 3°C Linköping</div>
 
     <!-- Bildersektion -->
@@ -224,20 +178,24 @@ body::before {
 </div>
 
 <script>
-// Analog klocka
+// Analog klocka visare
 function updateClock() {
     const now = new Date();
     const sec = now.getSeconds();
     const min = now.getMinutes();
     const hr  = now.getHours();
 
-    const secDeg = sec * 6; // 360 / 60
-    const minDeg = min * 6 + sec*0.1; // minut + liten justering
-    const hrDeg  = (hr%12)*30 + min*0.5; // timme + minut
+    const secDeg = sec * 6;
+    const minDeg = min * 6 + sec*0.1;
+    const hrDeg  = (hr%12)*30 + min*0.5;
 
-    document.getElementById('second-hand').style.transform = `rotate(${secDeg}deg) translateX(-50%)`;
-    document.getElementById('minute-hand').style.transform = `rotate(${minDeg}deg) translateX(-50%)`;
-    document.getElementById('hour-hand').style.transform = `rotate(${hrDeg}deg) translateX(-50%)`;
+    const hourHand = document.getElementById('hour-hand');
+    const minHand = document.getElementById('minute-hand');
+    const secHand = document.getElementById('second-hand');
+
+    hourHand.setAttribute('transform', `rotate(${hrDeg} 50 50)`);
+    minHand.setAttribute('transform', `rotate(${minDeg} 50 50)`);
+    secHand.setAttribute('transform', `rotate(${secDeg} 50 50)`);
 }
 updateClock();
 setInterval(updateClock, 1000);
@@ -245,14 +203,15 @@ setInterval(updateClock, 1000);
 // Datum
 function updateDate() {
     const now = new Date();
-    document.getElementById('date').textContent = now.toLocaleDateString('sv-SE', { weekday:'long', day:'numeric', month:'long' });
+    document.getElementById('date').textContent =
+        now.toLocaleDateString('sv-SE', { weekday:'long', day:'numeric', month:'long' });
 }
 updateDate();
 setInterval(updateDate, 60000);
 
-// Väder (statisk)
+// Väder
 document.getElementById('weather').textContent = "☀️ 3°C Linköping";
-</script>
 
+</script>
 </body>
 </html>
