@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Start - Synliga block</title>
+<title>Live Startpage</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --block-bg: #ffffff; /* Vit bakgrund nu */
+  --bg-block: #ffffff;
   --border: rgba(0,0,0,0.1);
   --text: #111;
 }
@@ -32,12 +32,12 @@ body {
 .grid {
   display: grid;
   grid-template-columns: 2.2fr 1.3fr 1.3fr;
-  grid-auto-rows: minmax(180px, auto);
+  grid-auto-rows: minmax(160px, auto);
   gap: 24px;
 }
 
 .block {
-  background: var(--block-bg);
+  background: var(--bg-block);
   border-radius: 16px;
   border: 1px solid var(--border);
   padding: 20px 22px;
@@ -49,25 +49,23 @@ body {
   font-weight: 600;
 }
 
-/* POPULAR SITES */
+/* Popular sites */
 .sites {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4,1fr);
   gap: 18px;
 }
 .site {
   text-align: center;
   font-size: 13px;
 }
-.site .icon {
+.site img {
   width: 44px;
   height: 44px;
-  border-radius: 10px;
-  margin: 0 auto 6px;
-  background: #e0e0e0;
+  margin-bottom: 6px;
 }
 
-/* SHOP */
+/* Shopping */
 .shop-list {
   display: flex;
   flex-direction: column;
@@ -77,23 +75,16 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
 }
-.shop-item .icon {
+.shop-item img {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
-  background: #e0e0e0;
 }
 
-/* WEATHER */
+/* Weather */
 .weather-main {
   font-size: 48px;
   font-weight: 600;
-}
-.weather-sub {
-  font-size: 14px;
-  margin-bottom: 10px;
 }
 .weather-days {
   display: flex;
@@ -101,22 +92,15 @@ body {
   font-size: 13px;
 }
 
-/* NEWS */
-.news {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.news-item {
-  font-size: 14px;
-  line-height: 1.3;
-}
-
-/* SPORTS / TRAVEL */
-.simple-list {
+/* News and sport lists */
+.news-list, .sport-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.news-list a, .sport-list a {
+  text-decoration: none;
+  color: var(--text);
   font-size: 14px;
 }
 </style>
@@ -126,77 +110,98 @@ body {
 <div class="page">
   <div class="grid">
 
-    <!-- POPULÄRA WEBBPLATSER -->
+    <!-- Populära webbplatser -->
     <div class="block">
       <h2>Populära webbplatser</h2>
       <div class="sites">
-        <div class="site"><div class="icon"></div>Google</div>
-        <div class="site"><div class="icon"></div>YouTube</div>
-        <div class="site"><div class="icon"></div>Facebook</div>
-        <div class="site"><div class="icon"></div>Instagram</div>
-        <div class="site"><div class="icon"></div>Wikipedia</div>
-        <div class="site"><div class="icon"></div>Amazon</div>
-        <div class="site"><div class="icon"></div>Netflix</div>
-        <div class="site"><div class="icon"></div>Spotify</div>
+        <div class="site"><a href="https://www.google.com"><img src="https://www.google.com/favicon.ico">Google</a></div>
+        <div class="site"><a href="https://www.youtube.com"><img src="https://www.youtube.com/s/desktop/63c70b40/img/favicon_144.png">YouTube</a></div>
+        <div class="site"><a href="https://www.facebook.com"><img src="https://www.facebook.com/favicon.ico">Facebook</a></div>
+        <div class="site"><a href="https://www.instagram.com"><img src="https://www.instagram.com/static/images/ico/favicon-200.png/ab6eff595bb1.png">Instagram</a></div>
+        <div class="site"><a href="https://www.wikipedia.org"><img src="https://www.wikipedia.org/static/favicon/wikipedia.ico">Wikipedia</a></div>
+        <div class="site"><a href="https://www.amazon.se"><img src="https://www.amazon.se/favicon.ico">Amazon</a></div>
+        <div class="site"><a href="https://www.netflix.com"><img src="https://www.netflix.com/favicon.ico">Netflix</a></div>
+        <div class="site"><a href="https://www.spotify.com"><img src="https://www.spotify.com/favicon.ico">Spotify</a></div>
       </div>
     </div>
 
-    <!-- HANDLA -->
+    <!-- Handla -->
     <div class="block">
       <h2>Handla</h2>
       <div class="shop-list">
-        <div class="shop-item"><div class="icon"></div>Elgiganten</div>
-        <div class="shop-item"><div class="icon"></div>Amazon</div>
-        <div class="shop-item"><div class="icon"></div>IKEA</div>
-        <div class="shop-item"><div class="icon"></div>Zalando</div>
+        <div class="shop-item"><img src="https://www.elgiganten.se/favicon.ico"><a href="https://www.elgiganten.se">Elgiganten</a></div>
+        <div class="shop-item"><img src="https://www.amazon.se/favicon.ico"><a href="https://www.amazon.se">Amazon</a></div>
+        <div class="shop-item"><img src="https://www.ikea.com/favicon.ico"><a href="https://www.ikea.com">IKEA</a></div>
+        <div class="shop-item"><img src="https://www.zalando.se/favicon.ico"><a href="https://www.zalando.se">Zalando</a></div>
       </div>
     </div>
 
-    <!-- VÄDER -->
-    <div class="block">
-      <h2>Väder</h2>
-      <div class="weather-main">14°</div>
-      <div class="weather-sub">Molnigt · Stockholm</div>
-      <div class="weather-days">
-        <span>Mån 13°</span>
-        <span>Tis 15°</span>
-        <span>Ons 16°</span>
-        <span>Tor 14°</span>
-      </div>
+    <!-- Väder (Linköping) -->
+    <div class="block" id="weather-block">
+      <h2>Väder – Linköping</h2>
+      <div class="weather-main" id="weather-temp">...</div>
+      <div class="weather-days" id="weather-days"></div>
     </div>
 
-    <!-- NYHETER -->
+    <!-- Aftonbladet Nyheter -->
     <div class="block" style="grid-column: 1 / 3;">
-      <h2>Nyheter</h2>
-      <div class="news">
-        <div class="news-item">Räntorna kan ligga kvar längre än väntat</div>
-        <div class="news-item">Microsoft presenterar nya AI-funktioner</div>
-        <div class="news-item">Så påverkas hushållen av elpriserna</div>
-        <div class="news-item">Experter varnar för ny bedrägerivåg</div>
-      </div>
+      <h2>Nyheter – Aftonbladet</h2>
+      <div class="news-list" id="news-afb"></div>
     </div>
 
-    <!-- SPORT -->
+    <!-- Sportnyheter -->
     <div class="block">
-      <h2>Sport</h2>
-      <div class="simple-list">
-        <div>AIK – Malmö FF 2–1</div>
-        <div>Djurgården vidare i Europa</div>
-        <div>Formel 1: dramatisk avslutning</div>
-      </div>
+      <h2>Sportnyheter</h2>
+      <div class="sport-list" id="sport-news"></div>
     </div>
 
-    <!-- RESOR -->
+    <!-- Teknik & Verktyg -->
     <div class="block">
-      <h2>Resor</h2>
-      <div class="simple-list">
-        <div>Billiga flyg till Barcelona</div>
-        <div>Weekend i Berlin</div>
-        <div>Populära sommarresmål 2026</div>
+      <h2>Teknik & Verktyg</h2>
+      <div class="sites">
+        <div class="site"><a href="https://github.com"><img src="https://github.com/favicon.ico">GitHub</a></div>
+        <div class="site"><a href="https://stackoverflow.com"><img src="https://stackoverflow.com/favicon.ico">Stack Overflow</a></div>
+        <div class="site"><a href="https://news.ycombinator.com"><img src="https://news.ycombinator.com/favicon.ico">Hacker News</a></div>
+        <div class="site"><a href="https://techcrunch.com"><img src="https://techcrunch.com/favicon.ico">TechCrunch</a></div>
       </div>
     </div>
 
   </div>
 </div>
+
+<script>
+// ====== WEATHER (OpenMeteo) ======
+fetch("https://api.open-meteo.com/v1/forecast?latitude=58.41&longitude=15.62&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=Europe/Stockholm")
+.then(r=>r.json()).then(data => {
+  document.getElementById("weather-temp").textContent = Math.round(data.current_weather.temperature) + "°";
+  let out = "";
+  data.daily.time.forEach((day,i) => {
+    out += "<span>" + day.split("-")[2] + "°C</span>";
+  });
+  document.getElementById("weather-days").innerHTML = out;
+});
+
+// ====== Aftonbladet News (RSS JSON proxy) ======
+// Using rss2json.com proxy
+fetch("https://api.rss2json.com/v1/api.json?rss_url=https://www.aftonbladet.se/rss.xml")
+.then(r=>r.json()).then(json => {
+  let html = "";
+  json.items.slice(0,6).forEach(item => {
+    html += '<a href="'+item.link+'" target="_blank">'+item.title+'</a>';
+  });
+  document.getElementById("news-afb").innerHTML = html;
+});
+
+// ====== Sport News (Sportbladet RSS) ======
+fetch("https://api.rss2json.com/v1/api.json?rss_url=https://sportbladet.se/srss.xml")
+.then(r=>r.json()).then(json => {
+  let html = "";
+  json.items.slice(0,6).forEach(item => {
+    html += '<a href="'+item.link+'" target="_blank">'+item.title+'</a>';
+  });
+  document.getElementById("sport-news").innerHTML = html;
+});
+</script>
+
 </body>
 </html>
