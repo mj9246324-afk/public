@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Start</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --glass-bg: rgba(255,255,255,0.18);
-  --glass-border: rgba(255,255,255,0.35);
+  --glass: rgba(255,255,255,0.22);
+  --border: rgba(255,255,255,0.4);
   --text: #111;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -25,122 +23,102 @@ body {
   color: var(--text);
 }
 
-/* ====== PAGE WRAPPER ====== */
 .page {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: auto;
   padding: 32px 24px;
 }
 
-/* ====== GRID LAYOUT (matches image proportions) ====== */
 .grid {
   display: grid;
   grid-template-columns: 2.2fr 1.3fr 1.3fr;
-  grid-auto-rows: minmax(180px, auto);
+  grid-auto-rows: minmax(170px, auto);
   gap: 24px;
 }
 
-/* ====== GLASS BLOCK ====== */
 .block {
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 16px;
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border);
   padding: 20px 22px;
 }
 
-/* ====== HEADERS ====== */
 .block h2 {
-  margin: 0 0 14px 0;
+  margin: 0 0 14px;
   font-size: 18px;
   font-weight: 600;
 }
 
-/* ====== POPULÄRA WEBBPLATSER ====== */
+/* POPULAR SITES */
 .sites {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
-
 .site {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  text-align: center;
   font-size: 13px;
 }
-
-.icon {
+.site .icon {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.55);
+  margin: 0 auto 6px;
+  background: rgba(255,255,255,0.6);
 }
 
-/* ====== SHOPPING ====== */
+/* SHOP */
 .shop-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-
 .shop-item {
   display: flex;
   align-items: center;
   gap: 12px;
+  font-size: 14px;
 }
-
 .shop-item .icon {
   width: 36px;
   height: 36px;
   border-radius: 8px;
+  background: rgba(255,255,255,0.6);
 }
 
-/* ====== WEATHER ====== */
-.weather {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.temp {
+/* WEATHER */
+.weather-main {
   font-size: 48px;
   font-weight: 600;
 }
-
-.forecast {
+.weather-sub {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.weather-days {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
 }
 
-/* ====== NEWS ====== */
-.news-list {
+/* NEWS */
+.news {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
-
 .news-item {
   font-size: 14px;
   line-height: 1.3;
 }
 
-/* ====== SPORTS ====== */
-.sports-list {
+/* SPORTS / TRAVEL */
+.simple-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  font-size: 14px;
-}
-
-/* ====== TRAVEL ====== */
-.travel {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   font-size: 14px;
 }
 </style>
@@ -148,7 +126,6 @@ body {
 
 <body>
 <div class="page">
-
   <div class="grid">
 
     <!-- POPULÄRA WEBBPLATSER -->
@@ -166,7 +143,7 @@ body {
       </div>
     </div>
 
-    <!-- SHOPPING -->
+    <!-- HANDLA -->
     <div class="block">
       <h2>Handla</h2>
       <div class="shop-list">
@@ -177,44 +154,44 @@ body {
       </div>
     </div>
 
-    <!-- WEATHER -->
+    <!-- VÄDER -->
     <div class="block">
       <h2>Väder</h2>
-      <div class="weather">
-        <div class="temp">14°</div>
-        <div class="forecast">
-          <span>Mån 13°</span>
-          <span>Tis 15°</span>
-          <span>Ons 16°</span>
-          <span>Tor 14°</span>
-        </div>
+      <div class="weather-main">14°</div>
+      <div class="weather-sub">Molnigt · Stockholm</div>
+      <div class="weather-days">
+        <span>Mån 13°</span>
+        <span>Tis 15°</span>
+        <span>Ons 16°</span>
+        <span>Tor 14°</span>
       </div>
     </div>
 
-    <!-- NEWS -->
+    <!-- NYHETER -->
     <div class="block" style="grid-column: 1 / 3;">
       <h2>Nyheter</h2>
-      <div class="news-list">
-        <div class="news-item">Regeringen presenterar nya förslag inför hösten</div>
-        <div class="news-item">Teknikbolagen fortsätter växa trots osäker marknad</div>
-        <div class="news-item">Så påverkas hushållen av ränteläget</div>
+      <div class="news">
+        <div class="news-item">Räntorna kan ligga kvar längre än väntat</div>
+        <div class="news-item">Microsoft presenterar nya AI-funktioner</div>
+        <div class="news-item">Så påverkas hushållen av elpriserna</div>
+        <div class="news-item">Experter varnar för ny bedrägerivåg</div>
       </div>
     </div>
 
-    <!-- SPORTS -->
+    <!-- SPORT -->
     <div class="block">
       <h2>Sport</h2>
-      <div class="sports-list">
+      <div class="simple-list">
         <div>AIK – Malmö FF 2–1</div>
         <div>Djurgården vidare i Europa</div>
         <div>Formel 1: dramatisk avslutning</div>
       </div>
     </div>
 
-    <!-- TRAVEL -->
+    <!-- RESOR -->
     <div class="block">
       <h2>Resor</h2>
-      <div class="travel">
+      <div class="simple-list">
         <div>Billiga flyg till Barcelona</div>
         <div>Weekend i Berlin</div>
         <div>Populära sommarresmål 2026</div>
