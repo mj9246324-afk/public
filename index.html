@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Min Startpage</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-    --bg: #0f0f13;
+    --bg-gradient: linear-gradient(135deg, #1c1c2b, #0f0f13, #1c1c2b);
     --accent: #4f8cff;
     --text: #f2f2f2;
     --sub: #9a9a9a;
+    --button-bg: rgba(255,255,255,0.05);
+    --button-hover: rgba(255,255,255,0.15);
 }
 
 * {
@@ -21,60 +23,83 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(145deg, #1a1a22, #0f0f13);
+    background: var(--bg-gradient);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
     color: var(--text);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .container {
     display: grid;
     grid-template-rows: auto auto auto;
-    row-gap: 50px;
+    row-gap: 40px;
     text-align: center;
 }
 
-/* KLOCKA */
+/* Klocka */
 .time {
-    font-size: 96px;
-    font-weight: 300;
+    font-size: 100px;
+    font-weight: 700;
+    color: var(--text);
+    text-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
 }
 
 .date {
-    font-size: 20px;
+    font-size: 22px;
     color: var(--sub);
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-/* LÄNKAR */
+/* Länkar */
 .links {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
     justify-items: center;
 }
 
 .links a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     text-decoration: none;
     color: var(--text);
+    font-weight: 500;
     font-size: 16px;
-    padding: 12px 20px;
-    border-radius: 16px;
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(8px);
-    transition: all 0.25s ease;
+    padding: 12px 22px;
+    border-radius: 20px;
+    background: var(--button-bg);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .links a:hover {
-    background: rgba(255,255,255,0.1);
-    transform: translateY(-4px);
+    background: var(--button-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
 
 /* Väder */
 .weather {
-    font-size: 18px;
+    font-size: 20px;
     color: var(--sub);
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Ikoner (för senare uppdatering) */
+.icon {
+    font-size: 20px;
 }
 </style>
 </head>
@@ -86,14 +111,13 @@ body {
     <div class="weather" id="weather">☀️ 3°C Linköping</div>
 
     <div class="links">
-        <a href="https://chat.openai.com" target="_blank">ChatGPT</a>
-        <a href="https://www.aftonbladet.se" target="_blank">Aftonbladet</a>
-        <a href="https://www.youtube.com" target="_blank">YouTube</a>
-        <a href="https://www.reddit.com" target="_blank">Reddit</a>
-        <a href="https://www.google.se" target="_blank">Google</a>
-        <a href="https://www.github.com" target="_blank">GitHub</a>
-        <a href="https://www.spotify.com" target="_blank">Spotify</a>
-        <a href="https://www.svt.se" target="_blank">SVT</a>
+        <a href="https://chat.openai.com" target="_blank">💬 ChatGPT</a>
+        <a href="https://www.youtube.com" target="_blank">▶️ YouTube</a>
+        <a href="https://www.github.com" target="_blank">🐙 GitHub</a>
+        <a href="https://www.spotify.com" target="_blank">🎵 Spotify</a>
+        <a href="https://www.reddit.com" target="_blank">👽 Reddit</a>
+        <a href="https://www.google.se" target="_blank">🔍 Google</a>
+        <a href="https://www.svt.se" target="_blank">📺 SVT</a>
     </div>
 </div>
 
