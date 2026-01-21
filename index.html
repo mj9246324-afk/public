@@ -6,212 +6,167 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-    --text: #ffffff;
-    --sub: #cccccc;
-    --accent: #4f8cff;
-    --panel-bg: rgba(0,0,0,0.5);
-    --panel-radius: 16px;
+  --text: #ffffff;
+  --sub: #cccccc;
+  --accent: #4f8cff;
+  --panel-bg: rgba(0,0,0,0.4);
+  --panel-radius: 16px;
+  --glass-blur: 12px;
 }
 
 /* Grundinställningar */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
-
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
 body {
-    min-height: 100vh;
-    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
-    color: var(--text);
-    padding: 50px 20px;
-    display: flex;
-    justify-content: center;
+  min-height:100vh;
+  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
+  color: var(--text);
+  display:flex; justify-content:center; align-items:flex-start; padding:40px;
+}
+body::before {
+  content:"";
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.4); z-index:0;
 }
 
 .container {
-    width: 100%;
-    max-width: 1200px;
-    display: grid;
-    grid-template-rows: auto auto 1fr;
-    row-gap: 40px;
-    justify-items: center;
+  position:relative; z-index:1;
+  display:grid; grid-template-rows:auto auto 1fr;
+  row-gap:40px; justify-items:center; width:100%; max-width:1200px;
 }
 
 /* ---------- ANALOG KLOCKA ---------- */
 .clock-container {
-    position: relative;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position:relative;
+  width:240px; height:240px;
+  border-radius:50%;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  display:flex; align-items:center; justify-content:center;
 }
 
 .clock-svg {
-    width: 200px;
-    height: 200px;
+  width:200px; height:200px;
 }
+
+.clock-svg circle { fill:none; stroke:white; stroke-width:1; }
+.clock-svg text { fill:white; font-size:6px; text-anchor:middle; dominant-baseline:middle; font-weight:500; }
+.clock-svg line { stroke-linecap:round; }
 
 /* Datum & väder */
-#date {
-    font-size: 20px;
-    color: var(--sub);
-    margin-top: 10px;
-}
-
-#weather {
-    font-size: 18px;
-    color: var(--sub);
-    margin-top: 5px;
-}
+#date { font-size:20px; color: var(--sub); margin-top:10px; }
+#weather { font-size:18px; color: var(--sub); margin-top:5px; }
 
 /* ---------- SEKTIONER ---------- */
 .section {
-    width: 100%;
-    max-width: 1100px;
-    background: var(--panel-bg);
-    border-radius: var(--panel-radius);
-    padding: 20px 30px;
-    margin-bottom: 20px;
+  width:100%; max-width:1100px;
+  background: var(--panel-bg);
+  border-radius: var(--panel-radius);
+  padding:20px 30px; margin-bottom:20px;
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
 }
 
-.section-title {
-    font-size: 18px;
-    color: var(--accent);
-    margin-bottom: 15px;
-}
-
+.section-title { font-size:18px; color: var(--accent); margin-bottom:15px; }
 .icon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 20px;
-    justify-items: start;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap:20px;
+  justify-items:start;
 }
-
 .icon-grid a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: var(--text);
-    font-size: 14px;
+  display:flex; align-items:center; gap:12px;
+  text-decoration:none; color: var(--text); font-size:14px;
 }
-
-.icon-grid a img {
-    width: 36px;
-    height: 36px;
-}
-
-.icon-grid a:hover {
-    opacity: 0.8;
-}
+.icon-grid a img { width:36px; height:36px; }
+.icon-grid a:hover { opacity:0.85; }
 
 </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Analog klocka -->
-    <div class="clock-container">
-        <svg class="clock-svg" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="48" stroke="white" stroke-width="1" fill="none"/>
-            <!-- siffror -->
-            <text x="50" y="12" text-anchor="middle" fill="white" font-size="5">12</text>
-            <text x="88" y="53" text-anchor="middle" fill="white" font-size="5">3</text>
-            <text x="50" y="95" text-anchor="middle" fill="white" font-size="5">6</text>
-            <text x="12" y="53" text-anchor="middle" fill="white" font-size="5">9</text>
-            <!-- visare -->
-            <line id="hour-hand" x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line id="minute-hand" x1="50" y1="50" x2="50" y2="20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <line id="second-hand" x1="50" y1="50" x2="50" y2="15" stroke="#4f8cff" stroke-width="1" stroke-linecap="round"/>
-        </svg>
-    </div>
 
-    <!-- Datum & Väder -->
-    <div id="date">Loading…</div>
-    <div id="weather">☀️ 3°C Linköping</div>
+  <!-- Analog klocka -->
+  <div class="clock-container">
+    <svg class="clock-svg" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48"/>
+      <!-- siffror -->
+      <text x="50" y="12">12</text>
+      <text x="88" y="53">3</text>
+      <text x="50" y="95">6</text>
+      <text x="12" y="53">9</text>
+      <!-- visare -->
+      <line id="hour-hand" x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="2"/>
+      <line id="minute-hand" x1="50" y1="50" x2="50" y2="20" stroke="white" stroke-width="1.5"/>
+      <line id="second-hand" x1="50" y1="50" x2="50" y2="15" stroke="#4f8cff" stroke-width="1"/>
+    </svg>
+  </div>
 
-    <!-- Bildersektion -->
-    <div class="section">
-        <div class="section-title">📸 Bilder</div>
-        <div class="icon-grid">
-            <a href="https://www.flickr.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/flickr.png"/><span>Flickr</span></a>
-            <a href="https://www.instagram.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/instagram-new.png"/><span>Instagram</span></a>
-        </div>
-    </div>
+  <!-- Datum & Väder -->
+  <div id="date">Loading…</div>
+  <div id="weather">☀️ 3°C Linköping</div>
 
-    <!-- Videosektion -->
-    <div class="section">
-        <div class="section-title">🎬 Video</div>
-        <div class="icon-grid">
-            <a href="https://www.youtube.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/youtube-play.png"/><span>YouTube</span></a>
-            <a href="https://vimeo.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/vimeo.png"/><span>Vimeo</span></a>
-        </div>
+  <!-- Sektioner med ikoner -->
+  <div class="section">
+    <div class="section-title">📸 Bilder</div>
+    <div class="icon-grid">
+      <a href="https://www.flickr.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/flickr.png"/><span>Flickr</span></a>
+      <a href="https://www.instagram.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/instagram-new.png"/><span>Instagram</span></a>
     </div>
+  </div>
 
-    <!-- Nyheter -->
-    <div class="section">
-        <div class="section-title">📰 Nyheter</div>
-        <div class="icon-grid">
-            <a href="https://www.aftonbladet.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/news.png"/><span>Aftonbladet</span></a>
-            <a href="https://www.svt.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/news.png"/><span>SVT</span></a>
-        </div>
+  <div class="section">
+    <div class="section-title">🎬 Video</div>
+    <div class="icon-grid">
+      <a href="https://www.youtube.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/youtube-play.png"/><span>YouTube</span></a>
+      <a href="https://vimeo.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/vimeo.png"/><span>Vimeo</span></a>
     </div>
+  </div>
 
-    <!-- Verktyg/Annat -->
-    <div class="section">
-        <div class="section-title">⚙️ Verktyg & annat</div>
-        <div class="icon-grid">
-            <a href="https://chat.openai.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/chat.png"/><span>ChatGPT</span></a>
-            <a href="https://www.google.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/google-logo.png"/><span>Google</span></a>
-            <a href="https://www.github.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/github.png"/><span>GitHub</span></a>
-            <a href="https://www.spotify.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/spotify.png"/><span>Spotify</span></a>
-        </div>
+  <div class="section">
+    <div class="section-title">📰 Nyheter</div>
+    <div class="icon-grid">
+      <a href="https://www.aftonbladet.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/news.png"/><span>Aftonbladet</span></a>
+      <a href="https://www.svt.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/news.png"/><span>SVT</span></a>
     </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">⚙️ Verktyg & annat</div>
+    <div class="icon-grid">
+      <a href="https://chat.openai.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/chat.png"/><span>ChatGPT</span></a>
+      <a href="https://www.google.se" target="_blank"><img src="https://img.icons8.com/color/48/000000/google-logo.png"/><span>Google</span></a>
+      <a href="https://www.github.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/github.png"/><span>GitHub</span></a>
+      <a href="https://www.spotify.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/spotify.png"/><span>Spotify</span></a>
+    </div>
+  </div>
 
 </div>
 
 <script>
-// Analog klocka visare
+// Analog klocka
 function updateClock() {
-    const now = new Date();
-    const sec = now.getSeconds();
-    const min = now.getMinutes();
-    const hr  = now.getHours();
-
-    const secDeg = sec * 6;
-    const minDeg = min * 6 + sec*0.1;
-    const hrDeg  = (hr%12)*30 + min*0.5;
-
-    const hourHand = document.getElementById('hour-hand');
-    const minHand = document.getElementById('minute-hand');
-    const secHand = document.getElementById('second-hand');
-
-    hourHand.setAttribute('transform', `rotate(${hrDeg} 50 50)`);
-    minHand.setAttribute('transform', `rotate(${minDeg} 50 50)`);
-    secHand.setAttribute('transform', `rotate(${secDeg} 50 50)`);
+  const now = new Date();
+  const sec = now.getSeconds();
+  const min = now.getMinutes();
+  const hr = now.getHours();
+  document.getElementById('second-hand').setAttribute('transform', `rotate(${sec*6} 50 50)`);
+  document.getElementById('minute-hand').setAttribute('transform', `rotate(${min*6 + sec*0.1} 50 50)`);
+  document.getElementById('hour-hand').setAttribute('transform', `rotate(${(hr%12)*30 + min*0.5} 50 50)`);
 }
-updateClock();
-setInterval(updateClock, 1000);
+updateClock(); setInterval(updateClock,1000);
 
 // Datum
 function updateDate() {
-    const now = new Date();
-    document.getElementById('date').textContent =
-        now.toLocaleDateString('sv-SE', { weekday:'long', day:'numeric', month:'long' });
+  const now = new Date();
+  document.getElementById('date').textContent = now.toLocaleDateString('sv-SE',{ weekday:'long', day:'numeric', month:'long' });
 }
-updateDate();
-setInterval(updateDate, 60000);
+updateDate(); setInterval(updateDate,60000);
 
 // Väder
 document.getElementById('weather').textContent = "☀️ 3°C Linköping";
-
 </script>
+
 </body>
 </html>
