@@ -103,6 +103,13 @@ body {
   color: var(--text);
   font-size: 14px;
 }
+
+/* TV-iframe */
+.tv-iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+}
 </style>
 </head>
 
@@ -114,14 +121,14 @@ body {
     <div class="block">
       <h2>Populära webbplatser</h2>
       <div class="sites">
-        <div class="site"><a href="https://www.google.com"><img src="https://www.google.com/favicon.ico">Google</a></div>
-        <div class="site"><a href="https://www.youtube.com"><img src="https://www.youtube.com/s/desktop/63c70b40/img/favicon_144.png">YouTube</a></div>
-        <div class="site"><a href="https://www.facebook.com"><img src="https://www.facebook.com/favicon.ico">Facebook</a></div>
-        <div class="site"><a href="https://www.instagram.com"><img src="https://www.instagram.com/static/images/ico/favicon-200.png/ab6eff595bb1.png">Instagram</a></div>
-        <div class="site"><a href="https://www.wikipedia.org"><img src="https://www.wikipedia.org/static/favicon/wikipedia.ico">Wikipedia</a></div>
-        <div class="site"><a href="https://www.amazon.se"><img src="https://www.amazon.se/favicon.ico">Amazon</a></div>
-        <div class="site"><a href="https://www.netflix.com"><img src="https://www.netflix.com/favicon.ico">Netflix</a></div>
-        <div class="site"><a href="https://www.spotify.com"><img src="https://www.spotify.com/favicon.ico">Spotify</a></div>
+        <div class="site"><a href="https://www.google.com"><img src="https://www.google.com/s2/favicons?domain=google.com">Google</a></div>
+        <div class="site"><a href="https://www.youtube.com"><img src="https://www.google.com/s2/favicons?domain=youtube.com">YouTube</a></div>
+        <div class="site"><a href="https://www.facebook.com"><img src="https://www.google.com/s2/favicons?domain=facebook.com">Facebook</a></div>
+        <div class="site"><a href="https://www.instagram.com"><img src="https://www.google.com/s2/favicons?domain=instagram.com">Instagram</a></div>
+        <div class="site"><a href="https://www.wikipedia.org"><img src="https://www.google.com/s2/favicons?domain=wikipedia.org">Wikipedia</a></div>
+        <div class="site"><a href="https://www.amazon.se"><img src="https://www.google.com/s2/favicons?domain=amazon.se">Amazon</a></div>
+        <div class="site"><a href="https://www.netflix.com"><img src="https://www.google.com/s2/favicons?domain=netflix.com">Netflix</a></div>
+        <div class="site"><a href="https://www.spotify.com"><img src="https://www.google.com/s2/favicons?domain=spotify.com">Spotify</a></div>
       </div>
     </div>
 
@@ -129,10 +136,10 @@ body {
     <div class="block">
       <h2>Handla</h2>
       <div class="shop-list">
-        <div class="shop-item"><img src="https://www.elgiganten.se/favicon.ico"><a href="https://www.elgiganten.se">Elgiganten</a></div>
-        <div class="shop-item"><img src="https://www.amazon.se/favicon.ico"><a href="https://www.amazon.se">Amazon</a></div>
-        <div class="shop-item"><img src="https://www.ikea.com/favicon.ico"><a href="https://www.ikea.com">IKEA</a></div>
-        <div class="shop-item"><img src="https://www.zalando.se/favicon.ico"><a href="https://www.zalando.se">Zalando</a></div>
+        <div class="shop-item"><img src="https://www.google.com/s2/favicons?domain=elgiganten.se"><a href="https://www.elgiganten.se">Elgiganten</a></div>
+        <div class="shop-item"><img src="https://www.google.com/s2/favicons?domain=amazon.se"><a href="https://www.amazon.se">Amazon</a></div>
+        <div class="shop-item"><img src="https://www.google.com/s2/favicons?domain=ikea.com"><a href="https://www.ikea.com">IKEA</a></div>
+        <div class="shop-item"><img src="https://www.google.com/s2/favicons?domain=zalando.se"><a href="https://www.zalando.se">Zalando</a></div>
       </div>
     </div>
 
@@ -155,15 +162,10 @@ body {
       <div class="sport-list" id="sport-news"></div>
     </div>
 
-    <!-- Teknik & Verktyg -->
-    <div class="block">
-      <h2>Teknik & Verktyg</h2>
-      <div class="sites">
-        <div class="site"><a href="https://github.com"><img src="https://github.com/favicon.ico">GitHub</a></div>
-        <div class="site"><a href="https://stackoverflow.com"><img src="https://stackoverflow.com/favicon.ico">Stack Overflow</a></div>
-        <div class="site"><a href="https://news.ycombinator.com"><img src="https://news.ycombinator.com/favicon.ico">Hacker News</a></div>
-        <div class="site"><a href="https://techcrunch.com"><img src="https://techcrunch.com/favicon.ico">TechCrunch</a></div>
-      </div>
+    <!-- TV Tablå -->
+    <div class="block" style="grid-column: 1 / 3;">
+      <h2>TV‑Tablå – Alla Kanaler</h2>
+      <iframe class="tv-iframe" src="https://www.allatvkanaler.se/" title="TV Tablå"></iframe>
     </div>
 
   </div>
@@ -173,31 +175,44 @@ body {
 // ====== WEATHER (OpenMeteo) ======
 fetch("https://api.open-meteo.com/v1/forecast?latitude=58.41&longitude=15.62&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=Europe/Stockholm")
 .then(r=>r.json()).then(data => {
-  document.getElementById("weather-temp").textContent = Math.round(data.current_weather.temperature) + "°";
+  document.getElementById("weather-temp").textContent = Math.round(data.current_weather.temperature) + "°C";
   let out = "";
-  data.daily.time.forEach((day,i) => {
-    out += "<span>" + day.split("-")[2] + "°C</span>";
+  data.daily.time.forEach((day, i) => {
+    out += "<span>"+day+" "+Math.round(data.daily.temperature_2m_max[i])+"°/"+Math.round(data.daily.temperature_2m_min[i])+"°</span>";
   });
   document.getElementById("weather-days").innerHTML = out;
 });
 
-// ====== Aftonbladet News (RSS JSON proxy) ======
-// Using rss2json.com proxy
-fetch("https://api.rss2json.com/v1/api.json?rss_url=https://www.aftonbladet.se/rss.xml")
-.then(r=>r.json()).then(json => {
+// ====== Aftonbladet News (allorigins proxy) ======
+fetch("https://api.allorigins.win/get?url="+encodeURIComponent("https://www.aftonbladet.se/rss.xml"))
+.then(r=>r.json())
+.then(data=>{
+  let parser = new DOMParser();
+  let xml = parser.parseFromString(data.contents,"text/xml");
+  let items = xml.querySelectorAll("item");
   let html = "";
-  json.items.slice(0,6).forEach(item => {
-    html += '<a href="'+item.link+'" target="_blank">'+item.title+'</a>';
+  items = Array.from(items).slice(0,6);
+  items.forEach(item=>{
+    let title = item.querySelector("title").textContent;
+    let link = item.querySelector("link").textContent;
+    html += '<a href="'+link+'" target="_blank">'+title+'</a>';
   });
   document.getElementById("news-afb").innerHTML = html;
 });
 
-// ====== Sport News (Sportbladet RSS) ======
-fetch("https://api.rss2json.com/v1/api.json?rss_url=https://sportbladet.se/srss.xml")
-.then(r=>r.json()).then(json => {
+// ====== Sport News (Sportbladet RSS via allorigins) ======
+fetch("https://api.allorigins.win/get?url="+encodeURIComponent("https://sportbladet.se/srss.xml"))
+.then(r=>r.json())
+.then(data=>{
+  let parser = new DOMParser();
+  let xml = parser.parseFromString(data.contents,"text/xml");
+  let items = xml.querySelectorAll("item");
   let html = "";
-  json.items.slice(0,6).forEach(item => {
-    html += '<a href="'+item.link+'" target="_blank">'+item.title+'</a>';
+  items = Array.from(items).slice(0,6);
+  items.forEach(item=>{
+    let title = item.querySelector("title").textContent;
+    let link = item.querySelector("link").textContent;
+    html += '<a href="'+link+'" target="_blank">'+title+'</a>';
   });
   document.getElementById("sport-news").innerHTML = html;
 });
