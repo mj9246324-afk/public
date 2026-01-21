@@ -2,13 +2,15 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
-<title>Modern Startpage</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Startpage</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
     --text: #ffffff;
-    --sub: #bbbbbb;
+    --sub: #cccccc;
     --accent: #4f8cff;
+    --glass-bg: rgba(255,255,255,0.05);
+    --glass-hover: rgba(255,255,255,0.1);
 }
 
 /* Grundinställningar */
@@ -20,164 +22,188 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
     background-attachment: fixed;
     color: var(--text);
-    overflow: hidden;
-    position: relative;
+    padding: 50px 20px;
 }
 
-/* Subtil bakgrunds-animation (rörliga stjärnor) */
-.stars {
+/* Overlay för kontrast */
+body::before {
+    content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: transparent;
+    top: 0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.3);
     z-index: 0;
-    pointer-events: none;
-}
-
-.star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle {
-    from {opacity:0.3;}
-    to {opacity:1;}
 }
 
 .container {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 1200px;
     display: grid;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto 1fr;
     row-gap: 30px;
-    text-align: center;
+    justify-items: center;
 }
 
-/* Futuristisk digital klocka */
-#digital-clock {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 100px;
+/* Rund glas-klocka */
+.clock-container {
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    padding: 50px;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+#clock {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
     font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 2px;
-    text-shadow: 0 0 15px var(--accent), 0 0 25px rgba(255,255,255,0.2);
-    transition: all 0.3s ease;
+    color: var(--text);
 }
 
 /* Datum */
 #date {
-    font-size: 24px;
+    font-size: 20px;
     color: var(--sub);
 }
 
-/* Länkar med ikoner */
-.links {
+/* Väder */
+#weather {
+    font-size: 18px;
+    color: var(--sub);
+}
+
+/* Kategori-boxar */
+.category {
+    background: var(--glass-bg);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    padding: 20px 30px;
+    width: 90%;
+    max-width: 1000px;
+    margin-bottom: 20px;
+}
+
+.category h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: var(--accent);
+}
+
+/* Ikon-grid */
+.icon-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 20px;
     justify-items: center;
 }
 
-.links a {
+.icon-grid a {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: var(--text);
-    font-weight: 500;
     font-size: 14px;
-    padding: 12px 18px;
-    border-radius: 16px;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
-.links a:hover {
-    transform: translateY(-5px);
-    background: rgba(0,0,0,0.6);
-}
-
-.links a img {
-    width: 32px;
-    height: 32px;
+.icon-grid a img {
+    width: 50px;
+    height: 50px;
     margin-bottom: 5px;
 }
 
-/* Väder */
-.weather {
-    font-size: 20px;
-    color: var(--sub);
+.icon-grid a:hover {
+    transform: translateY(-3px);
+    color: var(--accent);
 }
+
 </style>
 </head>
 <body>
 
-<div class="stars" id="stars"></div>
-
 <div class="container">
     <!-- Klocka -->
-    <div id="digital-clock">--:--</div>
+    <div class="clock-container">
+        <div id="clock">--:--</div>
+    </div>
     <!-- Datum -->
     <div id="date">Loading…</div>
     <!-- Väder -->
-    <div class="weather" id="weather">☀️ 3°C Linköping</div>
-    <!-- Länkar -->
-    <div class="links">
-        <a href="https://chat.openai.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/chat.png"/><span>ChatGPT</span></a>
-        <a href="https://www.youtube.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/youtube-play.png"/><span>YouTube</span></a>
-        <a href="https://www.github.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/github.png"/><span>GitHub</span></a>
-        <a href="https://www.spotify.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/spotify.png"/><span>Spotify</span></a>
-        <a href="https://www.reddit.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/reddit.png"/><span>Reddit</span></a>
-        <a href="https://www.google.se" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png"/><span>Google</span></a>
-        <a href="https://www.svt.se" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/tv.png"/><span>SVT</span></a>
+    <div id="weather">☀️ 3°C Linköping</div>
+
+    <!-- Kategorier -->
+
+    <!-- Bilder -->
+    <div class="category">
+        <h2>Bilder</h2>
+        <div class="icon-grid">
+            <a href="https://www.flickr.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/flickr.png"/><span>Flickr</span></a>
+            <a href="https://www.instagram.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/instagram-new.png"/><span>Instagram</span></a>
+        </div>
     </div>
+
+    <!-- Video -->
+    <div class="category">
+        <h2>Video</h2>
+        <div class="icon-grid">
+            <a href="https://www.youtube.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/youtube-play.png"/><span>YouTube</span></a>
+            <a href="https://vimeo.com" target="_blank"><img src="https://img.icons8.com/color/96/000000/vimeo.png"/><span>Vimeo</span></a>
+        </div>
+    </div>
+
+    <!-- Nyheter -->
+    <div class="category">
+        <h2>Nyheter</h2>
+        <div class="icon-grid">
+            <a href="https://www.aftonbladet.se" target="_blank"><img src="https://img.icons8.com/color/96/000000/news.png"/><span>Aftonbladet</span></a>
+            <a href="https://www.svt.se" target="_blank"><img src="https://img.icons8.com/color/96/000000/news.png"/><span>SVT</span></a>
+        </div>
+    </div>
+
+    <!-- Väder -->
+    <div class="category">
+        <h2>Väder</h2>
+        <div class="icon-grid">
+            <a href="https://www.smhi.se" target="_blank"><img src="https://img.icons8.com/color/96/000000/weather.png"/><span>SMHI</span></a>
+        </div>
+    </div>
+
 </div>
 
 <script>
-// Skapa stjärnor i bakgrunden
-const starsContainer = document.getElementById('stars');
-for (let i=0;i<80;i++){
-    let star = document.createElement('div');
-    star.className='star';
-    star.style.width = star.style.height = `${Math.random()*3+1}px`;
-    star.style.top = `${Math.random()*100}%`;
-    star.style.left = `${Math.random()*100}%`;
-    star.style.animationDuration = `${Math.random()*3+2}s`;
-    starsContainer.appendChild(star);
-}
-
-// Futuristisk digital klocka
-function updateClock(){
+// Klocka
+function updateClock() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2,'0');
     const minutes = String(now.getMinutes()).padStart(2,'0');
-    const seconds = String(now.getSeconds()).padStart(2,'0');
-    document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
+    document.getElementById('clock').textContent = `${hours}:${minutes}`;
 }
 updateClock();
 setInterval(updateClock, 1000);
 
 // Datum
-function updateDate(){
+function updateDate() {
     const now = new Date();
-    document.getElementById('date').textContent = now.toLocaleDateString('sv-SE', { weekday:'long', day:'numeric', month:'long' });
+    document.getElementById('date').textContent = now.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
 }
 updateDate();
 setInterval(updateDate, 60000);
 
-// Väderspan (manuell)
+// Väder (manuell)
 document.getElementById('weather').textContent = "☀️ 3°C Linköping";
 </script>
 
