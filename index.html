@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<title>Min Startpage</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #0f0f13;
+    --accent: #4f8cff;
+    --text: #f2f2f2;
+    --sub: #9a9a9a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(145deg, #1a1a22, #0f0f13);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    row-gap: 50px;
+    text-align: center;
+}
+
+/* KLOCKA */
+.time {
+    font-size: 96px;
+    font-weight: 300;
+}
+
+.date {
+    font-size: 20px;
+    color: var(--sub);
+}
+
+/* LÄNKAR */
+.links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 24px;
+    justify-items: center;
+}
+
+.links a {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(8px);
+    transition: all 0.25s ease;
+}
+
+.links a:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-4px);
+}
+
+/* Väder */
+.weather {
+    font-size: 18px;
+    color: var(--sub);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="time" id="time">--:--</div>
+    <div class="date" id="date">Loading…</div>
+    <div class="weather" id="weather">☀️ 3°C Linköping</div>
+
+    <div class="links">
+        <a href="https://chat.openai.com" target="_blank">ChatGPT</a>
+        <a href="https://www.aftonbladet.se" target="_blank">Aftonbladet</a>
+        <a href="https://www.youtube.com" target="_blank">YouTube</a>
+        <a href="https://www.reddit.com" target="_blank">Reddit</a>
+        <a href="https://www.google.se" target="_blank">Google</a>
+        <a href="https://www.github.com" target="_blank">GitHub</a>
+        <a href="https://www.spotify.com" target="_blank">Spotify</a>
+        <a href="https://www.svt.se" target="_blank">SVT</a>
+    </div>
+</div>
+
+<script>
+// Klocka och datum
+function updateTime() {
+    const now = new Date();
+    document.getElementById('time').textContent =
+        now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('date').textContent =
+        now.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+updateTime();
+setInterval(updateTime, 1000);
+
+// Väderspan (manuell)
+document.getElementById('weather').textContent = "☀️ 3°C Linköping";
+</script>
+
+</body>
+</html>
